@@ -1,0 +1,21 @@
+# =============================================================================
+# Inception-of-Things .gitignore
+# =============================================================================
+
+.vagrant/
+*.box
+k3s.yaml
+kubeconfig.yaml
+*.kubeconfig
+node-token
+k3s-token
+.env
+*.env
+!*.env.example
+*.pem
+*.key
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
