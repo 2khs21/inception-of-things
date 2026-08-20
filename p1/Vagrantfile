@@ -1,5 +1,5 @@
-# Part 1 Vagrantfile (Step 03)
-# VM 2대 + 고정 IP. K3s는 Step 04에서 추가.
+# Part 1 Vagrantfile (Step 04)
+# VM 2대 + 고정 IP. Server에 K3s controller.
 
 # 42 로그인. hostname은 LOGIN + "S"/"SW" → hyunkim2S / hyunkim2SW
 LOGIN = "hyunkim2"
@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
       vb.cpus = 1           # CPU 1개
       vb.gui = false
     end
+    server.vm.provision "shell", path: "scripts/k3s-server.sh"
   end
 
   # ServerWorker (나중에 K3s agent가 될 VM)
