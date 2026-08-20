@@ -1,7 +1,7 @@
-# Part 1 Vagrantfile (Step 02)
-# VM 1대만. 고정 IP·Worker·K3s는 Step 03~04에서 추가.
+# Part 1 Vagrantfile (Step 03)
+# VM 2대 + 고정 IP. K3s는 Step 04에서 추가.
 
-# 42 로그인. hostname은 LOGIN + "S" → hyunkim2S
+# 42 로그인. hostname은 LOGIN + "S"/"SW" → hyunkim2S / hyunkim2SW
 LOGIN = "hyunkim2"
 
 Vagrant.configure("2") do |config|
@@ -13,11 +13,26 @@ Vagrant.configure("2") do |config|
   # Server (나중에 K3s controller가 될 VM)
   config.vm.define "#{LOGIN}S" do |server|
     server.vm.hostname = "#{LOGIN}S"
+    server.vm.network "private_network", ip: "192.168.56.110"
 
     server.vm.provider "virtualbox" do |vb|
       vb.name = "#{LOGIN}S" # VirtualBox에 보이는 이름
       vb.memory = 1024      # RAM 1024 MB (과제 권장 최소)
       vb.cpus = 1           # CPU 1개
+      vb.gui = false
+    end
+  end
+
+  # ServerWorker (나중에 K3s agent가 될 VM)
+  config.vm.define "#{LOGIN}SW" do |worker|
+    worker.vm.hostname = "#{LOGIN}SW"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+
+    worker.vm.provider "virtualbox" do |vb|
+      vb.name = "#{LOGIN}SW" # VirtualBox에 보이는 이름
+      vb.memory = 1024      # RAM 1024 MB (과제 권장 최소)
+      vb.cpus = 1           # CPU 1개
+      vb.gui = false
     end
   end
 end
